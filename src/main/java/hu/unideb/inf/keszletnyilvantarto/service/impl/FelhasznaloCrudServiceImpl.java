@@ -31,12 +31,12 @@ public class FelhasznaloCrudServiceImpl
 
     @Override
     public FelhasznaloSaveDto findById(Long id) {
-        return null;
+        return fMapper.toSaveDto(fRepo.getReferenceById(id));
     }
 
     @Override
     public List<FelhasznaloSaveDto> findAll() {
-        return List.of();
+        return fMapper.toSaveDtos(fRepo.findAll());
     }
 
     @Override
