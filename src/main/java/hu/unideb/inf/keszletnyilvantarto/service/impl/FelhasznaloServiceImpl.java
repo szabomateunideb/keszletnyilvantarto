@@ -22,16 +22,6 @@ public class FelhasznaloServiceImpl
     @Override
     public List<FelhasznaloDisplayDto> findAll() {
         return mapper.toDtos(repo.findAll());
-        /*List<FelhasznaloDisplayDto> dtos = new ArrayList<>();
-        List<FelhasznaloEntity> entities = repo.findAll();
-
-        for (FelhasznaloEntity entity : entities) {
-            FelhasznaloDisplayDto dto = new FelhasznaloDisplayDto();
-            dto.setNev(entity.getNev());
-            dto.setNem(entity.getNem());
-            dto.setSzulDatum(entity.getSzuletesiDatum());
-            dtos.add(dto);
-        }*/
     }
 
     @Override
