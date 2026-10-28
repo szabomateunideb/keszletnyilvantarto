@@ -1,6 +1,7 @@
 package hu.unideb.inf.keszletnyilvantarto.service.impl;
 
 import hu.unideb.inf.keszletnyilvantarto.data.entity.FelhasznaloEntity;
+import hu.unideb.inf.keszletnyilvantarto.data.entity.JogEntity;
 import hu.unideb.inf.keszletnyilvantarto.data.repository.FelhasznaloRepository;
 import hu.unideb.inf.keszletnyilvantarto.service.FelhasznaloCrudService;
 import hu.unideb.inf.keszletnyilvantarto.service.dto.FelhasznaloSaveDto;
@@ -9,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -48,7 +50,10 @@ public class FelhasznaloCrudServiceImpl
 
     @Override
     public FelhasznaloSaveDto update(FelhasznaloSaveDto dto) {
-        FelhasznaloEntity e = fMapper.toEntity(dto);
+        FelhasznaloEntity e = fRepo.getReferenceById(dto.getId());
+        Set<JogEntity> j = e.getJogosultsagok();
+        e = fMapper.toEntity(dto); //eltűnnek a jogosultságok
+        e.setJogosultsagok(j);
         e = fRepo.save(e);
         return fMapper.toSaveDto(e);
     }

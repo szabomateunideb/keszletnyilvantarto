@@ -35,7 +35,7 @@ public class FelhasznaloController {
         this.jogRepo = jogRepo;
     }
 
-    @GetMapping
+    @GetMapping("/felhasznalok")
     public List<FelhasznaloDisplayDto> findAll() {
         return  felhasznaloService.findAll();
     }
