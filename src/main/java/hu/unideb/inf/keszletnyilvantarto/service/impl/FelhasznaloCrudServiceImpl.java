@@ -41,31 +41,43 @@ public class FelhasznaloCrudServiceImpl
 
     @Override
     public FelhasznaloSaveDto findByFelhasznalonev(String felhasznalonev) {
-        return null;
+        return fMapper.toSaveDto(
+                fRepo.findByFelhasznalonev(felhasznalonev)
+        );
     }
 
     @Override
     public FelhasznaloSaveDto update(FelhasznaloSaveDto dto) {
-        return null;
+        FelhasznaloEntity e = fMapper.toEntity(dto);
+        e = fRepo.save(e);
+        return fMapper.toSaveDto(e);
     }
 
     @Override
-    public FelhasznaloSaveDto changePassword(Long id, String oldPassword, String newPassword) {
-        return null;
+    public FelhasznaloSaveDto changePassword(Long id, String oldPassword, String newPassword)
+    {
+        FelhasznaloEntity e = fRepo.getReferenceById(id);
+        if(e.getJelszo().equals(oldPassword))
+        {
+            e.setJelszo(newPassword);
+        }
+        e = fRepo.save(e);
+        return fMapper.toSaveDto(e);
     }
 
     @Override
     public void deleteById(Long id) {
-
+        fRepo.deleteById(id);
     }
 
     @Override
     public void deleteAll() {
-
+        fRepo.deleteAll();
     }
 
     @Override
     public void delete(FelhasznaloSaveDto dto) {
-
+        fRepo.delete(fMapper.toEntity(dto));
+        //fRepo.deleteById(dto.getId());
     }
 }
