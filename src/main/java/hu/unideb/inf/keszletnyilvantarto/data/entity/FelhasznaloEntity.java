@@ -2,15 +2,20 @@ package hu.unideb.inf.keszletnyilvantarto.data.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.jspecify.annotations.Nullable;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 
 
 @Entity
 @Table(name = "FELHASZNALO")
-public class FelhasznaloEntity {
+public class FelhasznaloEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -110,5 +115,20 @@ public class FelhasznaloEntity {
 
     public void setJogosultsagok(Set<JogEntity> jogosultsagok) {
         this.jogosultsagok = jogosultsagok;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return jogosultsagok;
+    }
+
+    @Override
+    public @Nullable String getPassword() {
+        return jelszo;
+    }
+
+    @Override
+    public String getUsername() {
+        return felhasznalonev;
     }
 }
