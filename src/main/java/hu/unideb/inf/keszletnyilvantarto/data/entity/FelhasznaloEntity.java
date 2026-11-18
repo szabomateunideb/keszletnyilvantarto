@@ -22,7 +22,7 @@ public class FelhasznaloEntity implements UserDetails {
     private Long id;
     @Column(name = "felhnev", length = 50, nullable = false, unique = true)
     private String felhasznalonev;
-    @Column(length = 30, nullable = false)
+    @Column(nullable = false)
     private String jelszo;
     @Column(nullable = false)
     private String nev;
